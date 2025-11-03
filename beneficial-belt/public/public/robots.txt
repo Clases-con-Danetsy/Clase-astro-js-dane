@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Esto le dice a Google que puede indexar todo tu sitio.
