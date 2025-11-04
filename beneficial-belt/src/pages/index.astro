@@ -1,9 +1,18 @@
 ---
+
 import "../styles/global.css";
-import bienvenida from "../content/bienvenida.md";
+import Button from "../components/Button.astro";
+import fs from "fs";
+import matter from "gray-matter";
+import { marked } from "marked";
+const file = fs.readFileSync("./src/content/bienvenida.md", "utf-8");
+const { content } = matter(file);
+const contenido_markdown = marked(content);
 
 const nombre = import.meta.env.PUBLIC_NOMBRE;
 const color = import.meta.env.PUBLIC_COLOR;
+
+
 ---
 
 <html lang="es">
@@ -11,17 +20,29 @@ const color = import.meta.env.PUBLIC_COLOR;
     <meta charset="utf-8" />
     <title>Mi Landing Bonita ✨</title>
   </head>
-  <body style={`background-color: ${color};`} class="text-white flex flex-col items-center justify-center min-h-screen">
-    <h1 class="text-5xl font-bold mb-4 drop-shadow-lg">Hola, {nombre} 🌟</h1>
+  <body
+    style={`background-color: ${color};`}
+    class="text-blue-800 flex flex-col items-center justify-center min-h-screen"
+  >
+    <h1 class="text-5xl font-bold mb-4 drop-shadow-lg">
+      Hola, {nombre} 🌟
+    </h1>
 
-    <img src="/tomioka.jpg" alt="Tomioka" width="300" class="rounded-xl shadow-lg mt-4" />
+    <img
+      src="/tomioka.jpg"
+      alt="Tomioka"
+      width="300"
+      class="rounded-xl shadow-lg mt-4"
+    />
 
     <p class="text-lg max-w-md text-center opacity-90 mt-6">
       Bienvenido a esta landing creada con Astro y variables de entorno 💫
     </p>
 
     <article class="prose prose-invert max-w-md text-center mt-8">
-      <bienvenida />
+      <Button client:load>Bienvenidos</Button>
+
+      <div set:html={contenido_markdown}></div>
     </article>
   </body>
 </html>
