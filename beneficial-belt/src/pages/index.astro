@@ -1,48 +1,36 @@
 ---
-
 import "../styles/global.css";
-import Button from "../components/Button.astro";
 import fs from "fs";
 import matter from "gray-matter";
 import { marked } from "marked";
-const file = fs.readFileSync("./src/content/bienvenida.md", "utf-8");
+
+const file = fs.readFileSync("./src/content/colores.md", "utf-8");
 const { content } = matter(file);
 const contenido_markdown = marked(content);
-
-const nombre = import.meta.env.PUBLIC_NOMBRE;
-const color = import.meta.env.PUBLIC_COLOR;
-
-
 ---
 
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <title>Mi Landing Bonita ✨</title>
+    <title>Hola Cris ✨</title>
   </head>
   <body
-    style={`background-color: ${color};`}
-    class="text-blue-800 flex flex-col items-center justify-center min-h-screen"
+    class="bg-white text-black flex flex-col items-center justify-center min-h-screen p-4"
   >
-    <h1 class="text-5xl font-bold mb-4 drop-shadow-lg">
-      Hola, {nombre} 🌟
+    <h1 class="text-6xl font-bold mb-8 drop-shadow-lg animate-bounce text-gray-900">
+      Hola Cris 👋
     </h1>
 
-    <img
-      src="/tomioka.jpg"
-      alt="Tomioka"
-      width="300"
-      class="rounded-xl shadow-lg mt-4"
-    />
+    <!-- Imagen de Tomioka con animación -->
+    <div class="relative w-64 h-64 mb-8">
+      <img
+        src="/tomioka.jpg"
+        alt="Tomioka"
+        class="w-full h-full object-cover rounded-xl shadow-2xl animate-bounce"
+      />
+    </div>
 
-    <p class="text-lg max-w-md text-center opacity-90 mt-6">
-      Bienvenido a esta landing creada con Astro y variables de entorno 💫
-    </p>
-
-    <article class="prose prose-invert max-w-md text-center mt-8">
-      <Button client:load>Bienvenidos</Button>
-
-      <div set:html={contenido_markdown}></div>
-    </article>
+    <!-- Texto con colores desde Markdown -->
+    <article class="prose text-center max-w-md" set:html={contenido_markdown}></article>
   </body>
 </html>
